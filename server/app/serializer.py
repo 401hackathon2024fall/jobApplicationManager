@@ -11,7 +11,16 @@ class JobSerializer(serializers.ModelSerializer):
 class ResumeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Resume
-        fields = ['id', 'name', 'contact_info', 'work_experiences', 'skills']
+        fields = ['firstName',
+                'lastName', 
+                'email',
+                'contact', 
+                'position',
+                'employer', 
+                'city' ,
+                'startDate',
+                'endDate',
+                'description' ]
 
 class SkillSerializer(serializers.ModelSerializer):
     class Meta:

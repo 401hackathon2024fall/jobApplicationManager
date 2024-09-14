@@ -28,10 +28,16 @@ class Skill(models.Model):
 
 # Model for Resume
 class Resume(models.Model):
-    name = models.CharField(max_length=100)
-    contact_info = models.TextField()
-    work_experiences = models.TextField()
-    skills = models.ManyToManyField(Skill, blank=True)
+    firstName = models.CharField(max_length=100, null=True, blank=True)
+    lastName = models.CharField(max_length=100, null=True, blank=True)
+    email = models.EmailField(max_length=100, default='abc@gmail.com', null=True, blank=True)
+    contact = models.CharField(max_length=15, default='0', null=True, blank=True)
+    position = models.CharField(max_length=100, null=True, blank=True)
+    employer = models.CharField(max_length=100, null=True, blank=True)
+    city = models.CharField(max_length=100, default='ABC', null=True, blank=True)
+    startDate = models.DateField(null=True, blank=True)
+    endDate = models.DateField(null=True, blank=True)
+    description = models.TextField(null=True, blank=True)
 
     def __str__(self):
         return self.name
