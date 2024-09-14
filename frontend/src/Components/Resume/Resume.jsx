@@ -1,17 +1,25 @@
 import { useState, useEffect } from "react";
 import "./resume.css";
-import { Box, Button, HStack, Text } from "@chakra-ui/react"; // Chakra UI components
+import { Box, Button, HStack, Text } from "@chakra-ui/react";
+import jsPDF from "jspdf"; // For PDF generation
 
 function Resume({ masterResume }) {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [contact, setContact] = useState("");
-  const [experiences, setExperiences] = useState([]); // To store multiple experience entries
-  const [selectedExperienceIndex, setSelectedExperienceIndex] = useState(null); // To track the experience being edited
+  const [experiences, setExperiences] = useState([]);
+  const [selectedExperienceIndex, setSelectedExperienceIndex] = useState(null);
   const [resume, setResume] = useState(null);
   const [url, setUrl] = useState("");
   const [about, setAbout] = useState("");
+
+  const [position, setPosition] = useState("");
+  const [employer, setEmployer] = useState("");
+  const [city, setCity] = useState("");
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+  const [description, setDescription] = useState("");
 
   useEffect(() => {
     if (masterResume) {
@@ -84,12 +92,37 @@ function Resume({ masterResume }) {
     clearExperienceForm();
   };
 
-  const [position, setPosition] = useState("");
-  const [employer, setEmployer] = useState("");
-  const [city, setCity] = useState("");
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
-  const [description, setDescription] = useState("");
+  const generatePDF = () => {
+    const doc = new jsPDF();
+
+    // Adding resume details to the PDF
+    doc.setFontSize(18);
+    doc.text("Resume", 105, 20, null, null, "center");
+
+    doc.setFontSize(14);
+    doc.text("Personal Information:", 20, 40);
+    doc.setFontSize(12);
+    doc.text(`Name: ${firstName} ${lastName}`, 20, 50);
+    doc.text(`Email: ${email}`, 20, 60);
+    doc.text(`Contact: ${contact}`, 20, 70);
+    doc.text(`About: ${about}`, 20, 80);
+
+    // Experience section
+    doc.setFontSize(14);
+    doc.text("Experiences:", 20, 100);
+
+    experiences.forEach((exp, index) => {
+      doc.setFontSize(12);
+      doc.text(`Position: ${exp.position}`, 20, 110 + index * 30);
+      doc.text(`Employer: ${exp.employer}`, 20, 120 + index * 30);
+      doc.text(`Location: ${exp.city}`, 20, 130 + index * 30);
+      doc.text(`From: ${exp.startDate} To: ${exp.endDate}`, 20, 140 + index * 30);
+      doc.text(`Description: ${exp.description}`, 20, 150 + index * 30);
+    });
+
+    // Save the PDF
+    doc.save("resume.pdf");
+  };
 
   return (
     <div className="App">
@@ -138,9 +171,7 @@ function Resume({ masterResume }) {
           />
 
           <h3>
-            {selectedExperienceIndex !== null
-              ? "Edit Experience"
-              : "Add Experience"}
+            {selectedExperienceIndex !== null ? "Edit Experience" : "Add Experience"}
           </h3>
           <label>Position*</label>
           <input
@@ -192,9 +223,7 @@ function Resume({ masterResume }) {
           ></textarea>
 
           <Button type="submit" colorScheme="blue" mb={3}>
-            {selectedExperienceIndex !== null
-              ? "Update Experience"
-              : "Add Experience"}
+            {selectedExperienceIndex !== null ? "Update Experience" : "Add Experience"}
           </Button>
 
           <Button type="button" colorScheme="gray" onClick={handleReset}>
@@ -226,6 +255,10 @@ function Resume({ masterResume }) {
           </Box>
         ))
       )}
+
+      <Button mt={4} colorScheme="green" onClick={generatePDF}>
+        Download Resume
+      </Button>
     </div>
   );
 }
