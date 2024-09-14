@@ -28,7 +28,14 @@ function Resume({ masterResume }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const newExperience = { position, employer, city, startDate, endDate, description };
+    const newExperience = {
+      position,
+      employer,
+      city,
+      startDate,
+      endDate,
+      description,
+    };
 
     if (selectedExperienceIndex !== null) {
       const updatedExperiences = [...experiences];
@@ -74,7 +81,7 @@ function Resume({ masterResume }) {
       setAbout(masterResume.about || "");
     }
     setSelectedExperienceIndex(null);
-    clearExperienceForm(); 
+    clearExperienceForm();
   };
 
   const [position, setPosition] = useState("");
@@ -130,7 +137,11 @@ function Resume({ masterResume }) {
             required
           />
 
-          <h3>{selectedExperienceIndex !== null ? "Edit Experience" : "Add Experience"}</h3>
+          <h3>
+            {selectedExperienceIndex !== null
+              ? "Edit Experience"
+              : "Add Experience"}
+          </h3>
           <label>Position*</label>
           <input
             type="text"
@@ -180,8 +191,10 @@ function Resume({ masterResume }) {
             placeholder="Job Description"
           ></textarea>
 
-          <Button type="submit" colorScheme="blue">
-            {selectedExperienceIndex !== null ? "Update Experience" : "Add Experience"}
+          <Button type="submit" colorScheme="blue" mb={3}>
+            {selectedExperienceIndex !== null
+              ? "Update Experience"
+              : "Add Experience"}
           </Button>
 
           <Button type="button" colorScheme="gray" onClick={handleReset}>

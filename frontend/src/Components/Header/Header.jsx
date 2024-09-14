@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -33,21 +33,22 @@ function Header() {
   };
 
   return (
-    <AppBar position="static">
+    <AppBar position="static" sx={{ bgcolor: "green"}}>
       <Toolbar>
         {/* Left aligned logo */}
-        <Box sx={{ display: 'flex', alignItems: 'center', flexGrow: 1 }}>
+        <Box sx={{ display: "flex", alignItems: "center", flexGrow: 1 }}>
           <AdbIcon sx={{ mr: 1 }} />
           <Typography
             variant="h6"
             noWrap
-            component="a"
+            component={Link}
+            to="/"
             href="#"
             sx={{
               fontFamily: "monospace",
               fontWeight: 700,
               letterSpacing: ".3rem",
-              color: "inherit",
+              color: "orange",
               textDecoration: "none",
             }}
           >
@@ -79,10 +80,11 @@ function Header() {
             onClose={handleCloseUserMenu}
           >
             {settings.map((setting) => (
-              <MenuItem key={setting} onClick={() => handleMenuItemClick(setting)}>
-                <Typography sx={{ textAlign: "center" }}>
-                  {setting}
-                </Typography>
+              <MenuItem
+                key={setting}
+                onClick={() => handleMenuItemClick(setting)}
+              >
+                <Typography sx={{ textAlign: "center" }}>{setting}</Typography>
               </MenuItem>
             ))}
           </Menu>
