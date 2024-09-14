@@ -5,7 +5,7 @@ from .models import *
 class JobSerializer(serializers.ModelSerializer):
     class Meta:
         model = Job
-        fields = ['id', 'companyName', 'position', 'date_applied', 'status']
+        fields = ['id', 'position', 'company', 'status', 'date']
 
 
 class ResumeSerializer(serializers.ModelSerializer):

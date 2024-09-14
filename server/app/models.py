@@ -4,17 +4,17 @@ from django.db import models
 
 # Model for Job
 class Job(models.Model):
-    STATUS_CHOICES = [
-        ('applied', 'Applied'),
-        ('interview', 'Interview'),
-        ('offer', 'Offer'),
-        ('rejection', 'Rejection'),
-    ]
+    # STATUS_CHOICES = [
+    #     ('applied', 'Applied'),
+    #     ('interview', 'Interview'),
+    #     ('offer', 'Offer'),
+    #     ('rejection', 'Rejection'),
+    # ]
 
-    companyName = models.CharField(max_length=60)
     position = models.CharField(max_length=50)
-    date_applied = models.DateField()
-    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='applied')
+    company = models.CharField(max_length=60)
+    status = models.CharField(max_length=10, default='applied')
+    date = models.DateField()
 
     def __str__(self):
         return f"{self.companyName} - {self.position}"
