@@ -1,7 +1,17 @@
-export default function App() {
+import Header from "./Components/Header/Header";
+import Resume from "./Components/Resume/Resume";
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
+function App() {
   return (
-    <h1 className="text-3xl font-bold underline">
-      Hello world!
-    </h1>
-  )
+    <Router>
+      <Header />
+      <Routes>
+        <Route path="/resume" element={<Resume />} />
+      </Routes>
+    </Router>
+  );
 }
+
+export default App;
