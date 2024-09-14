@@ -1,14 +1,14 @@
 import { useState, useEffect } from "react";
 import "./resume.css";
-import { Box, Button, HStack, Text } from "@chakra-ui/react"; // Chakra UI components
+import { Box, Button, HStack, Text } from "@chakra-ui/react";
 
 function Resume({ masterResume }) {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [contact, setContact] = useState("");
-  const [experiences, setExperiences] = useState([]); // To store multiple experience entries
-  const [selectedExperienceIndex, setSelectedExperienceIndex] = useState(null); // To track the experience being edited
+  const [experiences, setExperiences] = useState([]); 
+  const [selectedExperienceIndex, setSelectedExperienceIndex] = useState(null);
   const [resume, setResume] = useState(null);
   const [url, setUrl] = useState("");
   const [about, setAbout] = useState("");
