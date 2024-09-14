@@ -1,23 +1,46 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, TextField, MenuItem, Select, FormControl, InputLabel, Modal, Box } from '@mui/material';
+import axios from "axios";
 
 const AddJob = () => {
+  
   const [jobs, setJobs] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [jobDetails, setJobDetails] = useState({
     position: '',
     company: '',
-    location: '',
     status: 'Applied',
     date: '',
   });
 
+  // Fetch data from the Django REST API when the component mounts
+  useEffect(() => {
+    axios.get('http://localhost:8000/app/jobs')  // Change to your actual API URL
+      .then(response => {
+        setJobs(response.data);  // Set the jobs data in state
+      })
+      .catch(error => {
+        console.error("There was an error fetching the jobs!", error);
+      });
+  }, []);
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setJobDetails((prevDetails) => ({
-      ...prevDetails,
-      [name]: value,
-    }));
+    if (name === 'date') {
+      // Format the date to YYYY-MM-DD
+      const formattedDate = new Date(value).toISOString().split('T')[0]; // Extracts the date part
+
+      console.log(formattedDate);
+      setJobDetails((prevDetails) => ({
+        ...prevDetails,
+        [name]: formattedDate,
+      }));
+    } else {
+      setJobDetails((prevDetails) => ({
+        ...prevDetails,
+        [name]: value,
+      }));
+    }
   };
 
   const handleStatusChange = (e) => {
@@ -28,15 +51,27 @@ const AddJob = () => {
   };
 
   const handleAddJob = () => {
-    setJobs((prevJobs) => [...prevJobs, jobDetails]);
-    setJobDetails({
-      position: '',
-      company: '',
-      location: '',
-      status: 'Applied',
-      date: '',
-    });
-    setModalOpen(false);
+    // Send job details to the Django REST API
+    axios.post('http://localhost:8000/app/jobs', jobDetails, {
+    headers: {
+      'Content-Type': 'application/json', // Ensure the content type is JSON
+    },
+  })
+      .then(response => {
+        // Add the new job to the state (so the table updates without page reload)
+        setJobs((prevJobs) => [...prevJobs, response.data]);
+        // Clear the input fields
+        setJobDetails({
+          position: '',
+          company: '',
+          status: '',
+          date: '',
+        });
+        setModalOpen(false);  // Close the modal
+      })
+      .catch(error => {
+        console.error("There was an error adding the job!", error);
+      });
   };
 
   return (
@@ -85,14 +120,6 @@ const AddJob = () => {
               label="Company"
               name="company"
               value={jobDetails.company}
-              onChange={handleInputChange}
-              margin="normal"
-            />
-            <TextField
-              fullWidth
-              label="Location"
-              name="location"
-              value={jobDetails.location}
               onChange={handleInputChange}
               margin="normal"
             />
@@ -151,7 +178,6 @@ const AddJob = () => {
           ))}
         </tbody>
       </table>
-
     </div>
   );
 };
