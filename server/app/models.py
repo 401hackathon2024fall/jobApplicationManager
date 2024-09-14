@@ -4,12 +4,6 @@ from django.db import models
 
 # Model for Job
 class Job(models.Model):
-    # STATUS_CHOICES = [
-    #     ('applied', 'Applied'),
-    #     ('interview', 'Interview'),
-    #     ('offer', 'Offer'),
-    #     ('rejection', 'Rejection'),
-    # ]
 
     position = models.CharField(max_length=50)
     company = models.CharField(max_length=60)
@@ -28,10 +22,17 @@ class Skill(models.Model):
 
 # Model for Resume
 class Resume(models.Model):
-    name = models.CharField(max_length=100)
-    contact_info = models.TextField()
-    work_experiences = models.TextField()
-    skills = models.ManyToManyField(Skill, blank=True)
+    firstName = models.CharField(max_length=100)
+    lastName = models.CharField(max_length=100)
+    email = models.CharField(max_length=100)
+    contact = models.IntegerField(max_length=10)
+    postion = models.CharField()
+    employer = models.CharField()
+    city = models.CharField()
+    startDate = models.DateField()
+    endDate = models.DateField()
+    description = models.TextField()
+
 
     def __str__(self):
         return self.name
