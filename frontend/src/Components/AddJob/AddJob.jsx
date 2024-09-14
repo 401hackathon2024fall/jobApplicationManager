@@ -74,12 +74,29 @@ const AddJob = () => {
       });
   };
 
+  const handleDeleteJob = (jobId) => {
+    axios.delete(`http://localhost:8000/app/jobs/${jobId}/`, {
+      headers: {
+        'Content-Type': 'application/json', // Ensure the content type is JSON
+      },
+    })
+      .then(response => {
+        // Remove the deleted job from the state
+        setJobs((prevJobs) => prevJobs.filter((job) => job.id !== jobId));
+        console.log("Job deleted successfully");
+      })
+      .catch(error => {
+        console.error("There was an error deleting the job!", error);
+      });
+  };
+  
+
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginTop: '20px', marginLeft: '10px', marginRight: '10px'}}>
       <Button
         variant="contained"
         onClick={() => setModalOpen(true)}
-        style={{ margin: '10px' }}
+        style={{ margin: '10px', backgroundColor: 'green', color: 'orange', width: '50%', justifyContent: 'center'}}
       >
         Add Job
       </Button>
@@ -149,6 +166,7 @@ const AddJob = () => {
             <Button
               variant="contained"
               onClick={handleAddJob}
+              style={ {backgroundColor: 'green', color: 'orange'} }
               sx={{ mt: 2 }} // Ensures spacing at the top
             >
               Add Job
@@ -165,6 +183,7 @@ const AddJob = () => {
             <th>Company</th>
             <th>Status</th>
             <th>Date</th>
+            <th>Actions</th> {/* Add a new header for actions */}
           </tr>
         </thead>
         <tbody>
@@ -174,6 +193,16 @@ const AddJob = () => {
               <td>{job.company}</td>
               <td>{job.status}</td>
               <td>{job.date}</td>
+              <td>
+                <Button
+                  variant="outlined"
+                  style={ {backgroundColor: 'green', color: 'orange'} }
+                  color="error"
+                  onClick={() => handleDeleteJob(job.id)} // Pass the job ID to the delete handler
+                >
+                  Delete
+                </Button>
+              </td>
             </tr>
           ))}
         </tbody>

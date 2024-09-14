@@ -15,7 +15,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, re_path
 from app.views import *
 
 urlpatterns = [
@@ -23,5 +23,5 @@ urlpatterns = [
     path('app/jobs', JobListView.as_view(), name='job-list'),
     path('app/resumes/', ResumeListView.as_view(), name='resume-list'),
     path('app/skills/', SkillListView.as_view(), name='skill-list'),
-
+    re_path(r'^app/jobs/(?P<pk>\d+)/$', JobDetailView.as_view(), name='job-detail'),  # Adjust to allow /1 or /1/
 ]
