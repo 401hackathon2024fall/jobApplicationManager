@@ -24,7 +24,7 @@ function AppContent() {
 function App() {
   return (
     <Router>
-      <AppContent /> {/* Use a component where useLocation can be used */}
+      <AppContent />
     </Router>
   );
 }
