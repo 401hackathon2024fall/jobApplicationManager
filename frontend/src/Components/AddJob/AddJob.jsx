@@ -40,8 +40,12 @@ const AddJob = () => {
   };
 
   return (
-    <div>
-      <Button variant="contained" onClick={() => setModalOpen(true)}>
+    <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
+      <Button
+        variant="contained"
+        onClick={() => setModalOpen(true)}
+        style={{ margin: '10px' }}
+      >
         Add Job
       </Button>
 
@@ -127,13 +131,27 @@ const AddJob = () => {
       </Modal>
 
       {/* Render the list of jobs */}
-      <ul>
-        {jobs.map((job, index) => (
-          <li key={index}>
-            {job.position} at {job.company} ({job.status})
-          </li>
-        ))}
-      </ul>
+      <table>
+        <thead>
+          <tr>
+            <th>Position</th>
+            <th>Company</th>
+            <th>Status</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          {jobs.map((job, index) => (
+            <tr key={index}>
+              <td>{job.position}</td>
+              <td>{job.company}</td>
+              <td>{job.status}</td>
+              <td>{job.date}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
     </div>
   );
 };
