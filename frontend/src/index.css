@@ -18,3 +18,8 @@ table {
   th {
     background-color: #f4f4f4;
   }
+
+  button {
+    background-color: green;
+    color: orange;
+  }
