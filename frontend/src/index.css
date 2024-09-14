@@ -25,12 +25,12 @@ th {
 }
 
 td {
-  background-color: #f9f9f9; /* Light background for better readability */
+  background-color: f9f9f9; /* Light background for better readability */
   color: #333; /* Darker text color */
 }
 
 tr:nth-child(even) td {
-  background-color: #f2f2f2; /* Alternate row background color */
+  background-color: f9f9f9; /* Alternate row background color */
 }
 
 tr:hover td {
@@ -48,4 +48,5 @@ tr:last-child td {
   button {
     background-color: green;
     color: orange;
+    font-weight: bold;
   }

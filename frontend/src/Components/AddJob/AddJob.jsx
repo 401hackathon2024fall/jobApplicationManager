@@ -96,7 +96,7 @@ const AddJob = () => {
       <Button
         variant="contained"
         onClick={() => setModalOpen(true)}
-        style={{ margin: '10px', backgroundColor: 'green', color: 'orange', width: '50%', justifyContent: 'center'}}
+        style={{ margin: '10px', backgroundColor: 'green', color: 'orange', width: '50%', justifyContent: 'center', fontWeight: 'bold'}}
       >
         Add Job
       </Button>
@@ -166,7 +166,7 @@ const AddJob = () => {
             <Button
               variant="contained"
               onClick={handleAddJob}
-              style={ {backgroundColor: 'green', color: 'orange'} }
+              style={ {backgroundColor: 'green', color: 'orange', fontWeight: 'bold'} }
               sx={{ mt: 2 }} // Ensures spacing at the top
             >
               Add Job
@@ -196,7 +196,7 @@ const AddJob = () => {
               <td>
                 <Button
                   variant="outlined"
-                  style={ {backgroundColor: 'green', color: 'orange'} }
+                  style={ {backgroundColor: 'green', color: 'orange', fontWeight: 'bold'} }
                   color="error"
                   onClick={() => handleDeleteJob(job.id)} // Pass the job ID to the delete handler
                 >
